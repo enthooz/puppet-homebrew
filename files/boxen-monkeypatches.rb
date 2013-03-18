@@ -33,6 +33,11 @@ class FormulaInstaller
     false
   end
 
+  # adds check for any options provided in ARGV
+  def pour_bottle?
+    (tab.used_options.empty? rescue true) && options.empty? && install_bottle?(f, true) && Options.coerce(ARGV.options_only).empty?
+  end
+
   def pour
     puts "Installing #{f.name} from S3..."
     Dir.chdir HOMEBREW_CELLAR do
