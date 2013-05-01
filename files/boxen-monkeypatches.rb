@@ -33,7 +33,16 @@ class FormulaInstaller
     false
   end
 
-  # adds check for any options provided in ARGV
+  # Adds check for any options provided in ARGV
+  #
+  # Makes the following example work, specifically `install_options`:
+  #
+  #   package { 'boxen/brews/nginx':
+  #     ensure          => '1.2.7-boxen1',
+  #     notify          => Service['dev.nginx'],
+  #     install_options => '--with-passenger',
+  #   }
+  # 
   def pour_bottle?
     (tab.used_options.empty? rescue true) && options.empty? && install_bottle?(f, true) && Options.coerce(ARGV.options_only).empty?
   end
